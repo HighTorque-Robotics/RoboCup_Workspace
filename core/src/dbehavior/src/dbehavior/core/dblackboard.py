@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import rospy
 import sys
-sys.path.append("/home/nvidia/robocup_ws/lib/devel/lib/python3/dist-packages")
+sys.path.append("/home/nvidia/RoboCup_Workspace/lib/devel/lib/python3/dist-packages")
 
 from dmsgs.msg import (MotionInfo, VisionInfo, ActionCommand, BehaviorInfo,
                        GCInfo, TeamInfo)

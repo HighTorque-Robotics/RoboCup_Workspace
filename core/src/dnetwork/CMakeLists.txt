@@ -3,9 +3,9 @@ project(dnetwork)
 
 add_definitions(-std=c++11 -Wall -O2)
 
-set(dmsgs_DIR /home/nvidia/robocup_ws/lib/devel/share/dmsgs/cmake)
-set(dtransmit_DIR /home/nvidia/robocup_ws/lib/devel/share/dtransmit/cmake)
-set(dprocess_DIR /home/nvidia/robocup_ws/lib/devel/share/dprocess/cmake)
+set(dmsgs_DIR /home/nvidia/RoboCup_Workspace/lib/devel/share/dmsgs/cmake)
+set(dtransmit_DIR /home/nvidia/RoboCup_Workspace/lib/devel/share/dtransmit/cmake)
+set(dprocess_DIR /home/nvidia/RoboCup_Workspace/lib/devel/share/dprocess/cmake)
 
 find_package(catkin
   REQUIRED

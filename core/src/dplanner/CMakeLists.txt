@@ -5,7 +5,7 @@ project(dplanner)
 add_definitions(-std=c++17 -Wall -g)
 
 set(dmsgs_DIR ../../../lib/devel/share/dmsgs/cmake)
-# set(dmsgs_DIR /home/nvidia/robocup_ws/lib/devel/share/dmsgs/cmake)
+# set(dmsgs_DIR /home/nvidia/RoboCup_Workspace/lib/devel/share/dmsgs/cmake)
 # set(sim2real_msg_DIR /home/nvidia/Desktop/totally_new/sim2real_master/devel/share/sim2real_msg/cmake)
 
 find_package(catkin REQUIRED COMPONENTS

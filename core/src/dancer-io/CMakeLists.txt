@@ -7,7 +7,7 @@ project(dancer-io)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-set(dmsgs_DIR /home/nvidia/robocup_ws/lib/devel/share/dmsgs/cmake)
+set(dmsgs_DIR /home/nvidia/RoboCup_Workspace/lib/devel/share/dmsgs/cmake)
 
 find_package(catkin REQUIRED COMPONENTS
   # message_generation
