@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find dconfig)/dconfig.launch" />
+  <include file="$(find dvision)/launch/default.launch" />
+  <include file="$(find dmotion)/launch/default.launch" />
+</launch>

@@ -1,0 +1,7 @@
+{
+    "repo": "DancerDeps/ros-cv-bridge",
+    "name": "cv_bridge",
+    "workspace": "lib",
+    "build": [],
+    "deps": {}
+}

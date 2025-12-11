@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>dancer_geometry</name>
+  <version>0.0.1</version>
+  <description>Geometry shape abstraction used in projects of ZJUDancer.</description>
+  <maintainer email="xxdsox@gmail.com">Yusu Pan</maintainer>
+  <license>MIT</license>
+  <url type="website">https://github.com/ZJUDancer/dancer-geometry</url>
+  <author email="xxdsox@gmail.com">Yusu Pan</author>
+
+  <depend>roscpp</depend>
+  <depend>geometry_msgs</depend>
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

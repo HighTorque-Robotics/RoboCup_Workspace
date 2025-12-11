@@ -1,0 +1,8 @@
+<launch>
+    <!-- dancer_io节点启动 -->
+    <node name="dancer_io" pkg="dancer-io" type="dancer-io" output="screen" >
+        <param name="RobotId" value="$(env ZJUDANCER_ROBOTID)" />
+    </node>
+
+</launch>
+

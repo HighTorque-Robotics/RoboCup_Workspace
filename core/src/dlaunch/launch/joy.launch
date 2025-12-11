@@ -1,0 +1,32 @@
+<launch>
+    <include file="$(find dmotion)/launch/default.launch" />
+    <node
+    pkg="joy"
+    name="joy_node"
+    type="joy_node"
+    output="screen"
+    respawn="false"
+    required="true"
+    cwd="node"
+    args=""
+    />
+
+  <arg name="skill"/>
+  <node pkg="dbehavior" 
+          name="dbehavior_$(env ZJUDANCER_ROBOTID)" 
+          type="main.py" 
+          output="screen" 
+          respawn="false" 
+          cwd="node" 
+          args="">
+        <param name="skill" value="SmartDoll"/>
+
+        <param name="RobotId" type="int" value="$(env ZJUDANCER_ROBOTID)"/>
+        <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dbehaviour/constant.yml"/>
+        <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dbehaviour/robot_config.yml"/>
+        <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dbehaviour/behaviour.yml"/>
+    </node>
+
+    <!--Global parameters-->
+    <rosparam command="load" file="$(find dconfig)/global.yml"/>
+</launch>

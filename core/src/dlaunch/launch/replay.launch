@@ -1,0 +1,9 @@
+<launch>
+  <node pkg="rosbag" type="play" name="rosbag" args="$(env HOME)/test.bag"/>
+
+  <include file="$(find dvision)/launch/default.launch"/>
+  <include file="$(find dnetwork)/launch/default.launch"/>
+
+  <param name="/ZJUDancer/OfflineRecord" value="false"/>
+  <param name="/ZJUDancer/OfflineReplay" value="true"/>
+</launch>

@@ -1,0 +1,4 @@
+- [ ] test 
+- [ ] Striker
+- [ ] Defender
+- [ ] Midfiedler

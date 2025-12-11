@@ -1,0 +1,16 @@
+<launch>
+    <include file="$(find dvision)/launch/default.launch"/>
+    <include file="$(find dmotion)/launch/default.launch" />
+
+    <node
+    pkg="joy"
+    name="joy_node"
+    type="joy_node"
+    output="screen"
+    respawn="false"
+    required="true"
+    cwd="node"
+    args=""
+    />
+</launch>
+

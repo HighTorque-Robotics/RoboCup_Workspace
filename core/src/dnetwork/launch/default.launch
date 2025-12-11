@@ -1,0 +1,20 @@
+<launch>
+    <node pkg="dnetwork"
+          name="dnetwork_$(env ZJUDANCER_ROBOTID)"
+          type="dnetwork_node"
+          output="screen"
+          respawn="false"
+          required="true"
+          cwd="node"
+          args="">
+
+        <env name="ROSCONSOLE_CONFIG_FILE" value="$(find dlaunch)/drosconsole.conf"/>
+
+        <param name="RobotId" value="$(env ZJUDANCER_ROBOTID)" />
+        <param name="TEST" value="1" />
+
+    </node>
+
+    <rosparam command="load" file="$(find dconfig)/global.yml"/>
+
+</launch>

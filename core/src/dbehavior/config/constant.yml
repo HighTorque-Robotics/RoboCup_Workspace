@@ -1,0 +1,25 @@
+dbehavior:
+  geometry:
+    field_length: 900
+    field_width: 600
+    goal_depth: 60
+    goal_width: 260
+    goal_height: 180
+    goal_area_length: 20
+    goal_area_width: 300
+    penalty_mark_distance: 150
+    center_circle_diameter: 150
+    border_strip_width: 70
+    line_width: 5
+  robot:
+    num_player: 6
+    max_pitch: 70
+    min_pitch: -15
+    max_yaw: 75
+    min_yaw: -75
+    walk_speed: 450 / 26
+    turn_speed: 10
+  team:
+    teaminfo_outdated: 0.5
+    ball_share_enabled: False
+    pace: False

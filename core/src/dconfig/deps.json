@@ -1,0 +1,8 @@
+{
+    "repo": "ZJUDancer/dancer-config",
+    "name": "dconfig",
+    "workspace": "core",
+    "build": [],
+    "deps": {}
+}
+

@@ -1,0 +1,15 @@
+{
+    "repo": "ZJUDancer/dancer-init",
+    "name": "dancer-init",
+    "workspace": "lib",
+    "build": [],
+    "deps": {
+        "dvision": "ZJUDancer/dancer-vision",
+        "dmotion": "ZJUDancer/dancer-motion",
+        "dancer-io": "ZJUDancer/dancer-io",
+        "dbehavior": "ZJUDancer/dancer-behavior",
+        "dnetwork": "ZJUDancer/dancer-network",
+        "dconfig": "ZJUDancer/dancer-config",
+        "dlaunch": "ZJUDancer/dancer-launch"
+    }
+}

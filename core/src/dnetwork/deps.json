@@ -1,0 +1,14 @@
+{
+    "repo": "ZJUDancer/dancer-network",
+    "name": "dnetwork",
+    "workspace": "core",
+    "build": [],
+    "deps": {
+        "dtransmit": "ZJUDancer/dancer-transmit",
+        "dprocess": "ZJUDancer/dancer-process",
+        "dmotion": "ZJUDancer/dancer-motion",
+        "dbehavior": "ZJUDancer/dancer-behavior",
+        "dvision": "ZJUDancer/dancer-vision"
+    }
+}
+

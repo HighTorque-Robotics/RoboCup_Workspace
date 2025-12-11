@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package>
+  <name>dmsgs</name>
+  <version>0.0.0</version>
+  <description>The dmsgs package</description>
+
+  <maintainer email="mwx@todo.todo">mwx</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <buildtool_depend>message_generation</buildtool_depend>
+  <buildtool_depend>geometry_msgs</buildtool_depend>
+</package>

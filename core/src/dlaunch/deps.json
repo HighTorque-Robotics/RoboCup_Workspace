@@ -1,0 +1,8 @@
+{
+    "repo": "ZJUDancer/dancer-launch",
+    "name": "dlaunch",
+    "workspace": "core",
+    "build": [],
+    "deps": {}
+}
+

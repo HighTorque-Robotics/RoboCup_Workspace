@@ -1,0 +1,8 @@
+{
+    "repo": "ZJUDancer/dancer-geometry",
+    "name": "dancer-geometry",
+    "workspace": "lib",
+    "build": [],
+    "deps": {}
+}
+

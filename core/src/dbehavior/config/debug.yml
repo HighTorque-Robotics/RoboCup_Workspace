@@ -1,0 +1,4 @@
+dbehavior:
+  debug:
+    print_routes: false
+    print_status: false

@@ -1,0 +1,53 @@
+dmotion:
+    leftFastKick:
+        data:
+             [   40 ,       25 ,       60 ,          # ticks
+                  0 ,     -1.0 ,        0 ,          # cm x
+               23.5 ,     23.5 ,     23.5 ,          # cm z
+                  7 ,        7 ,        5 ,          # cm roll
+                  6 ,        -5 ,       10 ,          # cm pitch
+               -5.0 ,     -5.5 ,     -5.0 ,          # cm dxy
+                -1 ,        -1 ,        0 ,          # la x 
+                  0 ,        -1 ,        0 ,          # la y
+                1.0 ,     2.5 ,        1.5 ,          # la z
+                 10 ,       10 ,        10 ,          # la roll
+                 5 ,        5 ,        -2 ,          # la pitch
+                 -2 ,       -2 ,       -2 ,          # ra pitch
+                  0 ,        0 ,        0 ,          # 
+                  0 ,        0 ,        0 ,          #
+                  0 ,       -50 ,       -50 ,          # knee
+                  0 ,       -40 ,       -40 ,          # ankle
+                  0.0 ,      0.5 ,        0            # delay
+              ]
+        row: 17
+        hip:  -35
+        knee: -25
+        ankle: -40
+        ratio: 0.5
+        debug: true
+    rightFastKick:
+        data:
+             [   40  ,  25   ,    60,               # ticks
+                  0.05  ,    -1  ,      0,                # cm x
+                 23   ,   23 ,     23,             # cm z
+                 -7.0 ,    -7.0 ,   -7,         # cm roll
+                  15 ,    0    ,        10,              # cm pitch
+                 6.5 ,  6.5    ,    6.5,               # cm dxy
+                 -2    ,  -2   ,      0,                # ra x
+                 0     ,  0    ,      0,                # ra y
+                    0.0 ,     2.5 ,        1.5,                 # ra z
+                  -10 ,    -10     ,   -10,              # ra roll
+                    5   ,  5     ,    -3,              # ra pitch
+                  -3   ,    -3     ,    -3,               # la pitch
+                     0 ,    0  ,        0,               #
+                    0 ,    0  ,        0,               #
+                    0 ,    40  ,       40,               # knee
+                  0 ,    45      ,   45,               # ankle
+                   0.1 ,     0.3 ,     0
+             ]
+        row: 17
+        hip:  -43
+        knee: -35
+        ankle: -50
+        ratio: 0.5
+        debug: false

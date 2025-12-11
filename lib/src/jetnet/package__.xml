@@ -1,0 +1,13 @@
+<package>
+  <name>jetnet</name>
+  <version>1.0.0</version>
+  <maintainer email="xxdsox@gmail.com">Yusu Pan</maintainer>
+  <author>EAVISE</author>
+  <description>
+    Jetnet is a blazing fast TensorRT implementation in C++ of YOLOv3, YOLOV3-tiny and YOLOv2.
+  </description>
+  <license>MIT</license>
+  <url>https://gitlab.com/EAVISE/jetnet</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

@@ -1,0 +1,25 @@
+<launch>
+    <arg name="role"/>
+    <node pkg="dbehavior" 
+          name="dbehavior_$(env ZJUDANCER_ROBOTID)" 
+          type="main.py" 
+          output="screen" 
+          respawn="false" 
+          cwd="node" 
+          args="">
+
+        <!-- <param name="role" value="$(arg role)"/> -->
+        <param name="role" value="Striker"/>
+        <!-- <param name="role" value="DemoMain"/> -->
+        <param name="RobotId" type="int" value="$(env ZJUDANCER_ROBOTID)"/>
+
+        <rosparam command="load" file="$(find dbehavior)/config/constant.yml"/>
+        <rosparam command="load" file="$(find dbehavior)/config/debug.yml"/>
+        <rosparam command="load" file="$(find dbehavior)/config/move.yml"/>
+        <rosparam command="load" file="$(find dbehavior)/config/role.yml"/>
+    </node>
+
+    <!--Global parameters-->
+    <rosparam command="load" file="$(find dconfig)/global.yml"/>
+
+</launch>

@@ -1,0 +1,10 @@
+{
+    "repo": "DacnerDeps/ros_h264_streamer",
+    "name": "ros_h264_streamer",
+    "workspace": "lib",
+    "build": [],
+    "deps": {
+        "ros-cv-bridge": "DancerDeps/ros-cv-bridge"
+    }
+}
+

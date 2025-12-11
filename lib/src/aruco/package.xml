@@ -1,0 +1,13 @@
+<package>
+  <name>aruco</name>
+  <version>3.0.9</version>
+  <maintainer email="xxdsox@gmail.com">Yusu Pan</maintainer>
+  <author email="rmsalinas@uco.es">Rafael Muñoz Salinas</author>
+  <description>
+    Aruco library for calibrating our camera extrinsic parameters.
+  </description>
+  <license>custom</license>
+  <url>https://sourceforge.net/projects/aruco/</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

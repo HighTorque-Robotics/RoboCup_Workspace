@@ -1,0 +1,13 @@
+<package>
+  <name>fmt</name>
+  <version>5.0.0</version>
+  <maintainer email="xxdsox@gmail.com">Yusu Pan</maintainer>
+  <author email="victor.zverovich@gmail.com">Victor Zverovich</author>
+  <description>
+    fmt is an open-source formatting library for C++. It can be used as a safe and fast alternative to (s)printf and IOStreams.
+  </description>
+  <license>custom</license>
+  <url>https://github.com/fmtlib/fmt</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

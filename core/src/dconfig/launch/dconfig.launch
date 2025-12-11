@@ -1,0 +1,11 @@
+<launch>
+    <node pkg="dconfig"
+          name="config_watchdog_node"
+          type="config_watchdog.py"
+          output="screen"
+          respawn="false"
+          args=""
+          cwd="node">
+        <param name="RobotId" value="$(env ZJUDANCER_ROBOTID)"/>
+    </node>
+</launch>

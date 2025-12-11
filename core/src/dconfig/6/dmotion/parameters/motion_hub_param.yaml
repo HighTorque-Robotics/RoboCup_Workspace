@@ -1,0 +1,84 @@
+dmotion:
+    OneFootLanding:
+        upbody_constant_roll: 0
+        upbody_constant_pitch: 0.2
+        ankle_offset_x: 0.0
+        ankle_offset_y: 0.0
+        ankle_offset_z: 9.5
+        body_center_x: 0.5
+        body_center_y: 0.0
+        body_center_z: -2.0
+        upbody_mass: 3000
+        foot_mass: 850
+        upper_leg_length: 12.3
+        lower_leg_length: 13.0
+        ankle_from_ground: 6.0
+        half_hip_width: 4.5
+        hip_x_from_origin: 0
+        hip_z_from_origin: 8.0
+    PendulumWalk:
+        ankle_dis: 15.0
+        tao: 0.33
+        tick_num: 33
+        com_h: 37.0
+        acc_coef_x: 0.15
+        acc_coef_y: 0.3
+        com_height: 27.0
+        y_half_amplitude: 3.0
+        com_x_offset: 1.0
+        turning_error: 2.0
+        slow_down_minus_x: 3.5
+        slow_down_minus_y: 1.5
+        slow_down_minus_yaw: 8.0
+        max_step_x: 11.0
+        max_step_y_out: 4.0
+        max_step_y_in: 2.5
+        max_step_yaw: 25.0
+        max_step_differ_x: 2.0
+        max_step_differ_y: 0.9
+        max_step_differ_yaw: 10.0
+        generate_rotate_speed: 15.0
+        nobrain_angle_tolerance: 30
+    ThreeInterpolation:
+        default_point_interval: 10.0
+        default_boundary_slope: 1.0
+    Climb:
+        whole_time: 0.5
+        not_leg_only_number: 17
+    Kick:
+        right_kick_x: -15.0
+        right_kick_y: 14.0
+        right_kick_files: "/home/ubuntu/dancer-workspace/workspaces/core/src/dconfig/1/dmotion/"
+    Status:
+        adjust_max_x: 4
+        adjust_max_y: 2.5
+        adjust_max_yaw: 10
+        adjust_max_step_num: 5
+        action_confirmation_num: 2
+        turn_tolerance: 35
+        step_yaw_tolerance: 10
+        LADT: 70
+        correct_k: 0.3
+        correct_y_k: 7
+        shit_rob_radius: 17
+        start_mix_distance: 300
+        one_step_y_out: 4.5
+        one_step_y_in: 2.5
+        stop_walk_dis: 30
+        dx_delta: 0.5
+        dyaw_delta: 6
+        panball_x: 2.5
+        uparm_angle: 0
+        lowarm_angle: 160
+        backward_step_length: -3
+        LAAT_for_ball: 20
+        LADT_for_ball: 20
+
+        kick_state1_exit: 45
+        kick_state2_exit: 45
+
+        dribble_state1_exit: 45
+        dribble_state2_exit: 45
+        dribble_gait_x: 8
+        
+        

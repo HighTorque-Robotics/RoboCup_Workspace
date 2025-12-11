@@ -1,0 +1,7 @@
+{
+    "repo": "ZJUDancer/jetnet",
+    "name": "jetnet",
+    "workspace": "lib",
+    "build": [],
+    "deps": {}
+}

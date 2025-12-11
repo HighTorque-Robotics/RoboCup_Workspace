@@ -1,0 +1,29 @@
+dbehavior:
+  move:
+    # walk to destination
+    walk_dest_region: 20
+    walk_dest_re_angle: 15
+    # head to destination
+    headkdest_angle: 1
+    face_ball_thresh: 20
+    gaze_ball_thresh: 1
+    # walk switch
+    nearby_switching_distance: 30
+    faraway_switching_distance: 40
+    # walk ability
+    top_x_max: 6.0
+    top_theta_max: 5.0
+    mid_x_max: 4.5
+    mid_theta_max: 10.0
+    ad_x_max: 2.0
+    ad_theta_max: 10.0
+    step_theta_max: 15.0
+    theta_safe: 10.0
+    epso: 1.0e-10
+  kick:
+    kick_type: normal
+    kick_point_left: [8, 8]
+    kick_point_right: [8, -8]
+    kick_distance_right: 240
+    kick_distance_left: 200
+    time_post_kick_tracking: 2

@@ -1,0 +1,10 @@
+{
+    "repo": "ZJUDancer/dancer-behavior",
+    "name": "dbehavior",
+    "workspace": "core",
+    "build": [],
+    "deps": {
+        "dmsgs": "ZJUDancer/dancer-msgs"
+    }
+}
+

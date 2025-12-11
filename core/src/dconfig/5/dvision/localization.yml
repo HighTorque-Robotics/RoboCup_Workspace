@@ -1,0 +1,79 @@
+dvision:
+  amcl:
+    # Distance for measurement. Weight for mark keep static in (0, trust_dist), decrease in (trust_dist, max_dist) until 0.
+    trust_dist:             200
+    max_dist:               350
+  calib:
+    calibOdometer:          false
+  kalman:
+    maxMissSec:             2
+    allowReset:             true
+  object_detector:
+    enable:                 true
+    showAllDetections:      true
+    # network
+    network_type:           'yolov3-tiny'
+    # input_model_file:       '/home/nvidia/dancer-model-zoo/2024-7-2best.engine'
+    input_model_file:       '/home/nvidia/dancer-model-zoo/best83.engine'
+    input_names_file:       '/home/nvidia/dancer-model-zoo/hum.names'
+    anchors_file:           ''
+    enable_profiling:       false
+  obstacle_detector:
+    enable:                 true
+    showAllObstacles:       false
+    showResObstacles:       true
+    # hsv range
+    active:                 false
+    h0:                     63
+    h1:                     168
+    s0:                     0
+    s1:                     129
+    v0:                     0
+    v1:                     60
+  ball_detector:
+    enable:                 true
+    showResult:             true
+  circle_detector:
+    enable:                 true
+  field_detector:
+    enable:                 true
+    showMask:               false
+    showResult:             true
+    showDebug:              false
+    # HSV range for green and white
+    h0:                     30
+    h1:                     108
+    s0:                     113
+    s1:                     255
+    v0:                     22
+    v1:                     255
+    d_h0:                   27
+    d_h1:                   100
+    d_s0:                   85
+    d_v0:                   14
+    d_v1:                   255
+  goal_detector:
+    enable:                 true
+  line_detector:
+    enable:                 true
+    showUnmerged:           true
+    showMask:               false
+    showResult:             true
+    showAllLine:            true
+    showVote:               false
+    # HSV range for white lines
+    h0:                     20
+    h1:                     77
+    s0:                     25
+    s1:                     150
+    v0:                     64
+    v1:                     255
+    black_h0:               11
+    black_h1:               64
+    black_s0:               199
+    black_s1:               255
+    black_v0:               0
+    black_v1:               47
+    black_dilate:           5
+  line_classifier:
+    enable:                 true

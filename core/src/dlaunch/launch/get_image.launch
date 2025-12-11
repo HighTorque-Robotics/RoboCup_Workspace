@@ -1,0 +1,27 @@
+<launch>
+    <include file="$(find dconfig)/launch/dconfig.launch"/>
+    <include file="$(find dmotion)/launch/default.launch" />
+    <include file="$(find dvision)/launch/default.launch" />
+    <include file="$(find dnetwork)/launch/default.launch"/>
+
+    <arg name="skill"/>
+    <node pkg="dbehavior"
+            name="dbehavior_$(env ZJUDANCER_ROBOTID)"
+            type="main.py"
+            output="screen"
+            respawn="false"
+            cwd="node"
+            args="">
+        <param name="role" value="GetImage"/>
+
+        <param name="RobotId" type="int" value="$(env ZJUDANCER_ROBOTID)"/>
+        <rosparam command="load" file="$(find dbehavior)/config/constant.yml"/>
+        <rosparam command="load" file="$(find dbehavior)/config/debug.yml"/>
+        <rosparam command="load" file="$(find dbehavior)/config/move.yml"/>
+        <rosparam command="load" file="$(find dbehavior)/config/role.yml"/>
+        <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dbehavior/move.yml"/>
+    </node>
+
+    <!--Global parameters-->
+    <rosparam command="load" file="$(find dconfig)/global.yml"/>
+</launch>

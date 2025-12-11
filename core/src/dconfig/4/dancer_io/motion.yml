@@ -1,0 +1,57 @@
+dmotion:
+  global :
+    debug_stablizer : false
+    using_lateral_stablizer : false
+    using_push_recovery : false
+
+  hardware:
+    imu_version                 : ADIS16405BMLZ
+   
+  state:
+    using_pressure : true
+    imu_prepare_time : 5    
+    ########## new ###########
+    imu_Kp                      : 0.7
+    imu_Ki                      : 0.02
+    vision_compensate_on        : true
+    fake_odometry_gain_x        : 2.0
+    fake_odometry_gain_y        : 2.0
+    using_fake_odometry         : false
+    using_support_stablizer     : true
+    using_data_log              : true
+    support_stablizer_threshold : 2
+    support_stablizer_timeout   : 200
+    off_ground_tick             : 300
+    on_ground_threshold         : 0.1
+    full_on_ground_threshold    : 0.2
+    support_stablizer_roll_threshold : 8.5
+    support_stablizer_x_threshold : 3.5
+    using_cxk                   : true
+    using_tuning_servo_init     : false
+
+  odometer:
+    K_normal_x_acc : 10
+    K_normal_x_vel : 10
+    K_big_acc_x_acc : 1
+    K_big_acc_x_vel : 1000
+    K_normal_y_acc : 10
+    K_normal_y_vel : 10
+    K_big_acc_y_acc : 1  
+    K_big_acc_y_vel : 1000
+    K_static_acc : 100
+    K_static_vel : 0
+
+    static_threshold : 20
+    static_tick : 20
+    big_acc_threshold_x : 200
+    big_acc_threshold_y : 100
+    zero_speed_update_tick_x : 2
+    zero_speed_update_tick_y : 12
+
+  feet:
+    mean_max : 1 
+    mean_min : 0.01
+    std_max  : 0.01
+    using_udf_mode : false
+    #          1       2      3      4      5      6      7      8
+    ch_on : [false, false, false, false, false, false, false, false]  

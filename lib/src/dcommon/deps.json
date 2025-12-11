@@ -1,0 +1,8 @@
+{
+    "repo": "ZJUDancer/dancer-common",
+    "name": "dcommon",
+    "workspace": "lib",
+    "build": [],
+    "deps": {}
+}
+

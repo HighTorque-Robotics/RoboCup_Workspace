@@ -1,0 +1,2 @@
+geometry_msgs/Vector3 pose
+float32 weight

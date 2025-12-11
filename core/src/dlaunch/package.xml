@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<package>
+  <name>dlaunch</name>
+  <version>0.0.0</version>
+  <description>set of launch files</description>
+  <maintainer email="mwx36mwx@gmail.com">Wenxing Mei</maintainer>
+  <author email="mwx36mwx@gmail.com">Wenxing Mei</author>
+  <license>TODO</license>
+  <buildtool_depend>catkin</buildtool_depend>
+</package>

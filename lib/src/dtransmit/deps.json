@@ -1,0 +1,8 @@
+{
+    "repo": "ZJUDancer/dancer-transmit",
+    "name": "dtransmit",
+    "workspace": "lib",
+    "build": [],
+    "deps": {}
+}
+

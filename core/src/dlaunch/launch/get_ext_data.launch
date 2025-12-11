@@ -1,0 +1,22 @@
+<launch>
+    <include file="$(find dancer-io)/launch/dancer-io.launch" />
+    <!-- <include file="$(find dmotion)/launch/motion_hub.launch" /> -->
+
+    <node pkg="dbehavior"
+            name="dbehavior_$(env ZJUDANCER_ROBOTID)"
+            type="main.py"
+            output="screen"
+            respawn="false"
+            cwd="node"
+            args="">
+        <param name="role" value="GetImage"/>
+
+        <param name="RobotId" type="int" value="$(env ZJUDANCER_ROBOTID)"/>
+        <rosparam command="load" file="$(find dbehavior)/config/constant.yml"/>
+        <rosparam command="load" file="$(find dbehavior)/config/debug.yml"/>
+        <rosparam command="load" file="$(find dbehavior)/config/role.yml"/>
+    </node>
+
+    <!--Global parameters-->
+    <rosparam command="load" file="$(find dconfig)/global.yml"/>
+</launch>

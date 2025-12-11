@@ -1,0 +1,9 @@
+<launch>
+  <node 
+    pkg="dplanner"
+    type="motion_hub_communicator" 
+    name="motion_hub_communicator" 
+    output="screen"
+  />
+
+</launch>

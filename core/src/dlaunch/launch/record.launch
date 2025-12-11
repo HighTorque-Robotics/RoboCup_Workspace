@@ -1,0 +1,12 @@
+<launch>
+    <include file="$(find dvision)/launch/default.launch"/>
+    <include file="$(find dconfig)/launch/dconfig.launch"/>
+    <include file="$(find dnetwork)/launch/default.launch"/>
+    <include file="$(find dmotion)/launch/motion_hub.launch" />
+    <include file="$(find dancer-io)/launch/motion_io.launch" />
+
+    <node pkg="rosbag" type="record" name="rosbag" args="-O $(env HOME)/test.bag dvision_$(env ZJUDANCER_ROBOTID)/cam_image /dmotion_$(env ZJUDANCER_ROBOTID)/MotionInfo"/>
+
+    <param name="/ZJUDancer/OfflineRecord" value="true"/>
+    <param name="/ZJUDancer/OfflineReplay" value="false"/>
+</launch>

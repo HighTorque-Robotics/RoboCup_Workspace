@@ -1,0 +1,20 @@
+ZJUDancer:
+    Simulation: false
+    OfflineRecord: false
+    OfflineReplay: false
+
+    Role: GCStriker
+
+    AttackRight: False
+    AlongGrass: False
+
+    UseGameController: True
+    GameControllerAddress: 192.168.1.84
+    TeamNumber: 17
+    TeamCyan: true
+
+    MotionSimdelay: 5000
+    udpBroadcastAddress: "255.255.255.255"
+    BroadcastMVInfo: False
+    VisionOnlyMode: False
+
