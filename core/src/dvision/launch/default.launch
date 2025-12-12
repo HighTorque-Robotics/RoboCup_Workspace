@@ -1,0 +1,28 @@
+<launch>
+    <!-- Use environment variable ZUJDANCRE_ROBOTID to determine robotId, this the default way to launch dvision / dbehavior ... -->
+    <!-- In dvision_1.launch etc, we set robotid manually, in order to avoid node name collision if we launching multiple instance of dvision to do simulation -->
+    <node pkg="dvision"
+          name="dvision_$(env ZJUDANCER_ROBOTID)"
+          type="dvision_node"
+          output="screen"
+          respawn="false"
+          required="true"
+          cwd="node"
+          args="">
+
+        <!--Set log level-->
+        <env name="ROSCONSOLE_CONFIG_FILE" value="$(find dlaunch)/drosconsole.conf"/>
+
+        <!--Private parameters-->
+        <param name="RobotId" value="$(env ZJUDANCER_ROBOTID)" />
+        <param name="dvision/object_detector/home_folder" value="$(env HOME)"/>
+        <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dvision/misc.yml"/>
+        <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dvision/camera.yml"/>
+        <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dvision/localization.yml"/>
+        <rosparam command="load" file="$(find dvision)/config/localization.yml"/>
+        <rosparam command="load" file="$(find dvision)/config/field_features.yml"/>
+    </node>
+
+    <!--Global parameters-->
+    <rosparam command="load" file="$(find dconfig)/global.yml"/>
+</launch>

@@ -19,7 +19,6 @@ find_package(Eigen3 REQUIRED)
 
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES DWAPlanner
   # CATKIN_DEPENDS roscpp rospy std_msgs dmsgs sim2real_msg
   CATKIN_DEPENDS roscpp rospy std_msgs dmsgs
   DEPENDS EIGEN3
@@ -32,20 +31,10 @@ include_directories(
 
 )
 
-add_library(DWAPlanner
-  src/DWAPlanner.cpp
-)
-
-target_link_libraries(DWAPlanner
-  ${catkin_LIBRARIES}
-  ${EIGEN3_LIBRARIES}
-)
-
 add_executable(motion_hub_communicator src/motion_hub_communicator.cpp)
 
 add_dependencies(motion_hub_communicator ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 target_link_libraries(motion_hub_communicator
-  DWAPlanner
   ${catkin_LIBRARIES}
 )

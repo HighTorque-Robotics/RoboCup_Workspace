@@ -7,7 +7,6 @@
 #include "dmsgs/MotionInfo.h"
 #include "dmsgs/Joy.h"
 #include "geometry_msgs/Twist.h"
-#include "DWAPlanner.h"
 #include "algorithm"
 #include <cmath>
 #include <utility>
@@ -283,9 +282,6 @@ void initJoyMsg() { //初始化Joy消息为默认值
 int main(int argc, char **argv) {
     string str = getenv("ZJUDANCER_ROBOTID");
 
-    // 初始化 DWA 实例（循环外创建，保留状态）
-    DWAConfig cfg;
-    DWAPlanner dwa_planner(cfg);
 
     ros::init(argc, argv, "motion_hub_communicator");
     ros::NodeHandle n;

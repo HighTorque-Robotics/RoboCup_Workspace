@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package>
+  <name>dvision</name>
+  <version>0.0.0</version>
+  <description>vision framework</description>
+  <maintainer email="mwx36mwx@gmail.com">Wenxing Mei</maintainer>
+  <author email="mwx36mwx@gmail.com">Wenxing Mei</author>
+  <license>TODO</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>dmsgs</build_depend>
+  <build_depend>dprocess</build_depend>
+  <build_depend>dancer_geometry</build_depend>
+  <build_depend>ros_h264_streamer</build_depend>
+  <build_depend>jetnet</build_depend>
+  <build_depend>aruco</build_depend>
+  <build_depend>fmt</build_depend>
+  <build_depend>image_transport</build_depend>
+
+  <run_depend>message_runtime</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>dprocess</run_depend>
+  <run_depend>dancer_geometry</run_depend>
+  <run_depend>ros_h264_streamer</run_depend>
+  <run_depend>jetnet</run_depend>
+  <run_depend>aruco</run_depend>
+  <run_depend>fmt</run_depend>
+  <run_depend>image_transport</run_depend>
+</package>

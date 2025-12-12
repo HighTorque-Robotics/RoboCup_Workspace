@@ -1,0 +1,17 @@
+{
+    "repo": "ZJUDancer/dancer-vision",
+    "name": "dvision",
+    "workspace": "core",
+    "build": [],
+    "deps": {
+        "dmsgs": "ZJUDancer/dancer-msgs",
+        "dprocess": "ZJUDancer/dancer-process",
+        "dconfig": "ZJUDancer/dancer-config",
+        "dtransmit": "ZJUDancer/dancer-transmit",
+        "dancer_geometry": "ZJUDancer/dancer-geometry",
+        "jetnet": "ZJUDancer/jetnet",
+        "aruco": "DancerDeps/aruco",
+        "fmt": "DancerDeps/fmt"
+    }
+}
+

@@ -1,0 +1,8 @@
+<launch>
+  <node pkg="rosbag" type="play" name="rosbag" args="$(env HOME)/bot4.bag"/>
+
+  <include file="$(find dvision)/launch/gdb.launch"/>
+
+  <param name="/ZJUDancer/OfflineRecord" value="false"/>
+  <param name="/ZJUDancer/OfflineReplay" value="true"/>
+</launch>

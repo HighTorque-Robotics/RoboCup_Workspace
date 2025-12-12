@@ -1,0 +1,25 @@
+<launch>
+    <node pkg="dvision"
+          name="dvision_3"
+          type="dvision_node"
+          output="screen"
+          respawn="false"
+          required="true"
+          cwd="node"
+          args="">
+
+        <!--Set log level-->
+        <env name="ROSCONSOLE_CONFIG_FILE" value="$(find dlaunch)/drosconsole.conf"/>
+
+        <!--Private parameters-->
+        <param name="RobotId" type="int" value="3" />
+        <param name="dvision/object_detector/home_folder" value="$(env HOME)"/>
+        <rosparam command="load" file="$(find dconfig)/3/dvision/misc.yml"/>
+        <rosparam command="load" file="$(find dconfig)/3/dvision/camera.yml"/>
+        <rosparam command="load" file="$(find dconfig)/3/dvision/localization.yml"/>
+        <rosparam command="load" file="$(find dvision)/config/localization.yml"/>
+    </node>
+
+    <!--Global parameters-->
+    <rosparam command="load" file="$(find dconfig)/global.yml"/>
+</launch>

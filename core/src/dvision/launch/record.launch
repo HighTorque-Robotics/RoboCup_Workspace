@@ -1,0 +1,8 @@
+<launch>
+    <include file="$(find dvision)/launch/default.launch"/>
+
+    <node pkg="rosbag" type="record" name="rosbag" args="-O $(env HOME)/vision.bag dvision_$(env ZJUDANCER_ROBOTID)/cam_image "/>
+
+    <param name="/ZJUDancer/OfflineRecord" value="true"/>
+    <param name="/ZJUDancer/OfflineReplay" value="false"/>
+</launch>

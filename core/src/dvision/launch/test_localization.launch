@@ -1,0 +1,14 @@
+<launch>
+    <node pkg="dvision"
+          name="test_localization"
+          type="test_localization"
+          output="screen"
+          respawn="false"
+          required="true"
+          cwd="node"
+          args=""/>
+    <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dvision/misc.yml"/>
+    <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dvision/camera.yml"/>
+    <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dvision/localization.yml"/>
+    <rosparam command="load" file="$(find dvision)/config/localization.yml"/>
+</launch>

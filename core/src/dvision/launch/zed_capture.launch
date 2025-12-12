@@ -1,0 +1,30 @@
+<launch>
+    <!-- Start the ZED capture node -->
+    <node pkg="dvision"
+          name="zed_capture_$(env ZJUDANCER_ROBOTID)"
+          type="zed_capture"
+          output="screen"
+          respawn="false"
+          required="true"
+          cwd="node"
+          args="">
+
+        <!-- Set log level -->
+        <env name="ROSCONSOLE_CONFIG_FILE" value="$(find dlaunch)/drosconsole.conf"/>
+
+        <!-- Private parameters -->
+        <param name="RobotId" value="$(env ZJUDANCER_ROBOTID)" />
+        <param name="dvision/object_detector/home_folder" value="$(env HOME)"/>
+
+        <!-- Load robot-specific parameters from YAML configuration files -->
+        <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dvision/misc.yml"/>
+        <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dvision/camera.yml"/>
+        <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dvision/localization.yml"/>
+
+        <!-- Load global configuration parameters -->
+        <rosparam command="load" file="$(find dvision)/config/localization.yml"/>
+    </node>
+
+    <!-- Load global parameters -->
+    <rosparam command="load" file="$(find dconfig)/global.yml"/>
+</launch>

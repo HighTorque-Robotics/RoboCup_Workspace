@@ -1,0 +1,127 @@
+dvision:
+  amcl:
+    enable:                 true
+    # Distance for measurement. Weight for mark keep static in (0, trust_dist), decrease in (trust_dist, max_dist) until 0.
+    # trust_dist:             100
+    # max_dist:               450
+    num_particles:          300
+    # Exponential decay rate for the slow average weight filter,
+    # used in deciding when to recover by adding random poses
+    alpha_slow:             0.001
+    # Exponential decay rate for the fast average weight filter,
+    # used in deciding when to recover by adding random poses
+    alpha_fast:             0.1
+    # Shortest interval(seconds) for resample without landmark
+    resample_interval:      10
+    # Longest jump distance for converge check
+    dist_threshold:         50
+    # Resample(force) distance increase speed(cm per tick).
+    # Distance increase from 0 to max distance after resample.
+    resample_dist_increase: 10
+    # Max distance between resample particle and current position
+    max_resample_dist:      300
+    # Parameters for laser probability model
+    # Mixture weight for the z_hit part of the model
+    z_hit:                  0.95 # ?
+    # Mixture weight for the z_rand part of the model
+    z_rand:                 0.05 # ?
+    # Standard deviation for Gaussian model used in z_hit part of the model
+    sigma_hit:              1.2
+    max_occ_dist:           25 # ?
+    # Interval of estimation (ticks)
+    estimate_interval:      2
+    # For quality and consistency
+    # Distance threshold for calc quality
+    good_dist_th:           20
+    # TODO(dai-z): Angle thres for calc quality(not used)
+    good_angle_th:          5
+    # Consistency reduce every tick
+    c_step_cost:            0.05
+    # Consistency threshold for resample(max = 1)
+    consistency_th:         0.05
+    # broadcast particles to monitor
+    debug_on_monitor:       true
+  object_detector:
+    threshold:              0.5
+    nms_threshold:          0.45
+    batch_size:             1
+    # check validation
+    ball_max_scale_coff:    0.5
+    ball_wh_low_ratio:      0.8
+    ball_wh_high_ratio:     1.2
+  obstacle_detector:
+    # model
+    decayConfidence:        0.99
+    minValidConfidence:     0.1
+    lowPassCoef:            0.9
+    maxPossibleJump:        0.4
+    # morph
+    dilate_1:               1
+    erode_1:                1
+    dilate_2:               5
+    erode_2:                1
+    # shape
+    minArea:                1000
+    minDistance:            0
+    maxDistance:            500
+  ball_detector:
+    useKalman:              true
+    # Max allowed miss time(sec)
+    kalmanMaxMiss:          1.5
+    # check ball radius
+    useRadiusCheck:         false
+    minBallRadiusRatio:     0.2
+    maxBallRadiusRatio:     1.5
+    # check ball in field
+    useInFieldCheck:        false
+    minBallToFieldDist:     -10
+    # check ball distance from robot
+    useDistCheck:           true
+    maxSeeBallDist:         700
+    # Minimum number of ball history in queue for calculating velocity
+    minQueue:               5
+    # Ball history queue size(Should not be too big)
+    maxQueue:               10
+    maxQueue:               10
+    # Set true to get log files of ball velocity and field position
+    velocityDebug:          True
+  circle_detector:
+    useKalman:              false
+    # Max allowed miss time(sec)
+    kalmanMaxMiss:          0.5
+  corner_detector:
+    # Use YOLO to detect L, T, X intxns and penalty marks
+    use_yolo:               true
+    enable:                 true
+    showResult:             true
+    max_line_Angle:         15 # max line angle to 0 or 90 to vote
+    min_line_length:        15 # min length to vote
+    max_short_line_length:  120 # max short line length to vote
+    cell_length:            5 # length to cut field , usually is 5
+    yolo_corner_error:      1 
+    T_error:                10
+    max_corner_length:      100
+    min_corner_score:       0
+  goal_detector:
+    useKalman:              false
+    # Max allowed miss time(sec)
+    kalmanMaxMiss:          0.5
+    # max distance between robot and goal post
+    maxDistFromRobot:       300
+    # check goal width and angle. (Both needed for detecting goal center)
+    useGoalWidthCheck:      true
+    minGoalWidthRatio:      0.8
+    maxGoalWidthRatio:      1.2
+    useGoalAngleCheck:      true
+    GoalAngleTh:            30
+  yaw_correction:
+    angle2HorLine:          20      #in degree
+    angle2VerLine:          20      #in degree
+    minLineLen:             70
+    maxDistBothGoal:        30
+    maxDistSingleGoal:      2
+    yawCorrectNum:          20
+    circleLineLen:          150
+    goalLineLen:            180000
+    otherLineLen:           1450000
+    robotMaxDist2GoalLine:  300

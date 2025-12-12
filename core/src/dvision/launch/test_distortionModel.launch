@@ -1,0 +1,14 @@
+<launch>
+    <node pkg="dvision"
+          name="test_distortionModel"
+          type="test_distortionModel"
+          output="screen"
+          respawn="false"
+          required="true"
+          cwd="node"
+          args="">
+        <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dvision/camera.yml"/>
+        <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dvision/misc.yml"/>
+        <rosparam command="load" file="$(find dconfig)/$(env ZJUDANCER_ROBOTID)/dvision/localization.yml"/>
+    </node>
+</launch>
