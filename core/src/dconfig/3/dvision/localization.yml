@@ -13,8 +13,8 @@ dvision:
     showAllDetections:      true
     # network
     network_type:           'yolov3-tiny'
-    input_model_file:       '/home/nvidia/dancer-model-zoo/best83.engine'
-    input_names_file:       '/home/nvidia/dancer-model-zoo/hum.names'
+    input_model_file:       '/home/nvidia/RoboCup_Workspace/core/src/dvision/model/best83.engine'
+    input_names_file:       '/home/nvidia/RoboCup_Workspace/core/src/dvision/model/hum.names'
     anchors_file:           ''
     enable_profiling:       false
   obstacle_detector:
