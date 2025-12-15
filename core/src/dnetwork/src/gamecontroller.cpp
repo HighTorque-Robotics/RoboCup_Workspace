@@ -188,7 +188,7 @@ GameController::tick()
     sockaddr_in addr{};
     addr.sin_family = AF_INET;
     addr.sin_port = htons(GAMECONTROLLER_RETURN_PORT);
-    inet_pton(AF_INET, "192.168.1.84", &addr.sin_addr);
+    inet_pton(AF_INET, gameControllerAddress_.c_str(), &addr.sin_addr);
 
     printf("Sending %ld bytes to %s:%d\n", sizeof(ret_), inet_ntoa(addr.sin_addr), ntohs(addr.sin_port));
     for (int i = 0; i < sizeof(ret_); i++) {
