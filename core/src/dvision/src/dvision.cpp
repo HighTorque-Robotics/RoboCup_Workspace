@@ -642,7 +642,7 @@ void DVision::BehaviorCallback(
   m_behavior_info = *behavior_msg;
 
   // prepare output directory
-  std::string path("/home/nvidia/RoboCup_Workspace/core/src/dvision/camera" + "/hum_data/");
+  std::string path(std::string("/home/nvidia/RoboCup_Workspace/core/src/dvision/camera") + "/hum_data/");
   boost::filesystem::path dir(path.c_str());
   if (boost::filesystem::create_directory(dir)) {
     ROS_INFO("Directory Created for captured frames: %s", path.c_str());

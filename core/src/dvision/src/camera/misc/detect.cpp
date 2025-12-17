@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
   bool auto_mode = false;
   dvision::Timer t;
   // prepare output directory
-  std::string path("/home/nvidia/RoboCup_Workspace/core/src/dvision/camera" + "/int_img_" + std::to_string(dvision::parameters.robotId));
+  std::string path(std::string("/home/nvidia/RoboCup_Workspace/core/src/dvision/camera") + "/int_img_" + std::to_string(dvision::parameters.robotId));
   boost::filesystem::path dir(path.c_str());
   if (boost::filesystem::create_directory(dir)) {
     ROS_INFO("Directory Created for captured frames: %s", path.c_str());
