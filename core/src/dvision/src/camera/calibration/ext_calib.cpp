@@ -24,7 +24,7 @@ static ros::Subscriber sub_motion_info_;
 static ros::Subscriber sub_behavior_info_;
 static dvision::V4L2Camera *camera_;
 static dvision::Frame frame_;
-static std::string path_(std::string(std::getenv("HOME")) + "/dancer-camera");
+static std::string path_("/home/nvidia/RoboCup_Workspace/core/src/dvision/camera");
 static std::string point = "";
 
 int main(int argc, char *argv[]) {
