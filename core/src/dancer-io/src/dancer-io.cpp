@@ -84,8 +84,8 @@ public:
         pnh_.param<std::string>("base_frame", base_frame_, "base_link");
         pnh_.param<bool>("publish_tf", publish_tf_, true);
         pnh_.param<int>("stable_threshold", stable_threshold_, 5);
-        pnh_.param<double>("angle_threshold", angle_threshold_, 0.35);
-        pnh_.param<double>("re_stable_timeout", re_stable_timeout_, 9.999);
+        pnh_.param<double>("angle_threshold", angle_threshold_, 0.5);
+        pnh_.param<double>("re_stable_timeout", re_stable_timeout_, 5);
 
         // 订阅话题
         if(!pnh_.getParam("RobotId", robotId)) {
@@ -265,10 +265,15 @@ private:
             
             // 如果连续超过阈值达到设定次数
             if (unstable_count_ >= stable_threshold_) {
-                // stable_ = false;
-                stable_ = true; // 临时设置为true以避免影响里程计
+                stable_ = false;
+                // stable_ = true; // 临时设置为true以避免影响里程计
                 last_unstable_time_ = ros::Time::now();
                 ROS_WARN("Robot is unstable! Roll: %.2f, Pitch: %.2f", imu_roll_, imu_pitch_);
+                if (imu_roll_ > angle_threshold_) {
+                    motion_info_.forward_or_backward = true; // 前倾
+                } else if (imu_roll_ < -angle_threshold_) {
+                    motion_info_.forward_or_backward = false; // 后倾
+                }
             }
         } else {
             // 角度恢复正常，重置计数器
@@ -293,9 +298,6 @@ private:
         // 设置稳定状态
         motion_info_.stable = stable_;
         
-        // 设置前进/后退状态（根据速度判断）
-        motion_info_.forward_or_backward = (vx_ > 0.1);  // 前进阈值
-        
         // 设置IMU RPY数据
         motion_info_.imuRPY.x = imu_roll_ * 180.0 / M_PI;
         motion_info_.imuRPY.y = imu_pitch_ * 180.0 / M_PI;
@@ -317,32 +319,41 @@ private:
     }
 
     void actionCallback(const dmsgs::ActionCommand::ConstPtr& msg) {
-        if (!stable_) {
-            ROS_WARN_THROTTLE(1.0, "Robot is unstable, ignoring head commands");
-            return;
-        }
+        // if (!stable_) {
+        //     ROS_WARN_THROTTLE(1.0, "Robot is unstable, ignoring head commands");
+        //     return;
+        // }
         motion_info_.lower_board_connected = true;
 
         dmsgs::HeadCommand head_cmd = msg->headCmd;
         const double deg2rad = M_PI / 180.0;
         double pitch_rad = head_cmd.pitch * deg2rad;
         double yaw_rad = head_cmd.yaw * deg2rad;
-        double pitchSpeed_rad = head_cmd.pitchSpeed;
-        double yawSpeed_rad   = head_cmd.yawSpeed   * deg2rad;
+        double pitchSpeed_deg = head_cmd.pitchSpeed;
+        double yawSpeed_deg   = head_cmd.yawSpeed;
 
-        // 创建 JointState 消息
-        if (abs(pitchSpeed_rad) > 0.1) {
-            sensor_msgs::JointState joint_state;
-            joint_state.header.stamp = ros::Time::now();
-            joint_state.header.frame_id = "head_joints";
-            joint_state.name.push_back("head_pitch_joint");
-            joint_state.name.push_back("head_yaw_joint");
+        if (std::abs(pitchSpeed_deg) < 0.1)
+            return;
+
+        sensor_msgs::JointState joint_state;
+        joint_state.header.stamp = ros::Time::now();
+        joint_state.header.frame_id = "head_joints";
+        joint_state.name.push_back("head_pitch_joint");
+        joint_state.name.push_back("head_yaw_joint");
+
+        if (stable_) {
             joint_state.position.push_back(pitch_rad);
             joint_state.position.push_back(yaw_rad);
-
-           // 发布 JointState 消息
-            tx_pub_.publish(joint_state);
+        } else if (motion_info_.forward_or_backward_) {
+            joint_state.position.push_back(-1.57);
+            joint_state.position.push_back(0);
+        } else {
+            joint_state.position.push_back(1.57);
+            joint_state.position.push_back(0);   
         }
+        
+        // 发布 JointState 消息
+        tx_pub_.publish(joint_state);
     }
 
     void cmdVelCallback(const geometry_msgs::Twist::ConstPtr& msg) {
