@@ -315,7 +315,7 @@ private:
     
     void updateMotionInfoOdometry() {
         // 更新MotionInfo中的里程计数据
-        motion_info_.odometry.x = 50 * x_;
+        motion_info_.odometry.x = 30 * x_;
         motion_info_.odometry.y = 40 * y_;
         motion_info_.odometry.z = 0.0;  // 2D平面，z=0
     }
