@@ -151,8 +151,8 @@ class InitialEntry(DynamicGuardSelector):
                             #             walk_backward=True),
                             #  FarFromInitPos()),
                             (GoToInitPos(bb),
-                             GotOutOfInitPos(dis_tol=80, angle_tol=30),
-                             GotInitPos(dis_tol=25))
+                             GotOutOfInitPos(dis_tol=10, angle_tol=10),
+                             GotInitPos(dis_tol=10))
                         ],
                         use_exit=True),
                     DynamicGuardSelector([(TrackCircle(bb), CircleSeen()),

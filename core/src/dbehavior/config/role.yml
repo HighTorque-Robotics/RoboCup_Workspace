@@ -2,8 +2,8 @@ dbehavior:
   role:
    striker:
     start_pos: [-75, -300, 90]
-    init_pos: [-90, 0, 0]
-    kickoff_pos: [-75, 0, 0]
+    init_pos: [-240, 0, 0]
+    kickoff_pos: [-200, 0, 0]
     patrol_pos_a: [150, -130, 0]
     patrol_pos_b: [300, -130, 180]
     team_radius: 100
