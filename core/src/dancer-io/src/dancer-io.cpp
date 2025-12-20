@@ -83,7 +83,7 @@ public:
         pnh_.param<std::string>("odom_frame", odom_frame_, "odom");
         pnh_.param<std::string>("base_frame", base_frame_, "base_link");
         pnh_.param<bool>("publish_tf", publish_tf_, true);
-        pnh_.param<int>("stable_threshold", stable_threshold_, 5);
+        pnh_.param<int>("stable_threshold", stable_threshold_, 2);
         pnh_.param<double>("angle_threshold", angle_threshold_, 0.5);
         pnh_.param<double>("re_stable_timeout", re_stable_timeout_, 5);
 
@@ -258,7 +258,7 @@ private:
         // 计算角度绝对值
         double roll_abs = std::abs(imu_roll_);
         double pitch_abs = std::abs(imu_pitch_);
-        
+        std::cout << "Roll: " << imu_roll_ << ", Pitch: " << imu_pitch_ << std::endl;
         // 如果角度超过阈值
         if (roll_abs > angle_threshold_ || pitch_abs > angle_threshold_) {
             unstable_count_++;
@@ -268,11 +268,13 @@ private:
                 stable_ = false;
                 // stable_ = true; // 临时设置为true以避免影响里程计
                 last_unstable_time_ = ros::Time::now();
-                ROS_WARN("Robot is unstable! Roll: %.2f, Pitch: %.2f", imu_roll_, imu_pitch_);
-                if (imu_roll_ > angle_threshold_) {
+                // ROS_WARN("Robot is unstable! Roll: %.2f, Pitch: %.2f", imu_roll_, imu_pitch_);
+                if (imu_pitch_ > angle_threshold_) {
                     motion_info_.forward_or_backward = true; // 前倾
-                } else if (imu_roll_ < -angle_threshold_) {
+                    ROS_WARN("Robot is Forward!\n\n\n");
+                } else if (imu_pitch_ < -angle_threshold_) {
                     motion_info_.forward_or_backward = false; // 后倾
+                    ROS_WARN("Robot is Backward!\n\n\n");
                 }
             }
         } else {
@@ -344,11 +346,11 @@ private:
         if (stable_) {
             joint_state.position.push_back(pitch_rad);
             joint_state.position.push_back(yaw_rad);
-        } else if (motion_info_.forward_or_backward_) {
-            joint_state.position.push_back(-1.57);
+        } else if (motion_info_.forward_or_backward) {
+            joint_state.position.push_back(-1.2);
             joint_state.position.push_back(0);
         } else {
-            joint_state.position.push_back(1.57);
+            joint_state.position.push_back(0.5);
             joint_state.position.push_back(0);   
         }
         
