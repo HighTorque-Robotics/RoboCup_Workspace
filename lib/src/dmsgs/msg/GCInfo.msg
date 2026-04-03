@@ -4,6 +4,7 @@ bool connected
 # Control Data
 uint8 gameType
 uint8 state
+bool stopped
 bool firstHalf
 bool kickoff
 uint8 secondaryState

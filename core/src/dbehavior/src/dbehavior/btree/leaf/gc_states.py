@@ -42,7 +42,8 @@ class GCSet(ConditionLeaf):
 class GCPlaying(ConditionLeaf):
 
     def condition(self):
-        return self.get_bb().gc_info.state is GCInfo.STATE_PLAYING
+        return self.get_bb().gc_info.state is GCInfo.STATE_PLAYING and \
+               not self.get_bb().gc_info.stopped
 
 
 class GCFinished(ConditionLeaf):
@@ -55,6 +56,7 @@ class GCReEntry(ConditionLeaf):
 
     def condition(self):
         return self.get_bb().gc_info.state is GCInfo.STATE_PLAYING and \
+               not self.get_bb().gc_info.stopped and \
                self.get_bb().timer_re_entry.elapsed() <= 10
 
 
@@ -215,6 +217,7 @@ class GCNormalPlaying(ConditionLeaf):
     def condition(self):
         gc_info = self.get_bb().gc_info
         return gc_info.state is GCInfo.STATE_PLAYING and \
+               not gc_info.stopped and \
                gc_info.secondaryState is GCInfo.STATE2_NORMAL
 
 
@@ -239,6 +242,7 @@ class GCPenaltyShootPlaying(ConditionLeaf):
     def condition(self):
         gc_info = self.get_bb().gc_info
         return gc_info.state is GCInfo.STATE_PLAYING and \
+               not gc_info.stopped and \
                gc_info.secondaryState is GCInfo.STATE2_PENALTYSHOOT
 
 
@@ -249,6 +253,7 @@ class GCKickOffSupporterDelay(ConditionLeaf):
         return gc_info.kickoff and \
                self.get_bb().param.pos_role == 'supporter' and \
                gc_info.state is GCInfo.STATE_PLAYING and \
+               not gc_info.stopped and \
                gc_info.secondaryTime != 0
 
 
@@ -259,10 +264,12 @@ class GCNonKickOffPlaying(ConditionLeaf):
         striker_delay = not gc_info.kickoff and \
                         self.get_bb().param.pos_role == 'striker' and \
                         gc_info.state is GCInfo.STATE_PLAYING and \
+                        not gc_info.stopped and \
                         gc_info.secondaryTime > 3
         supporter_delay = not gc_info.kickoff and \
                         self.get_bb().param.pos_role == 'supporter' and \
                         gc_info.state is GCInfo.STATE_PLAYING and \
+                        not gc_info.stopped and \
                         gc_info.secondaryTime > 8
         return striker_delay or supporter_delay
 
@@ -278,6 +285,7 @@ class GCNonKickOffPending(ConditionLeaf):
 
         non_kick_off = not gc_info.kickoff and \
                        gc_info.state is GCInfo.STATE_PLAYING and \
+                       not gc_info.stopped and \
                        self.get_bb().timer_gc_playing.elapsed() <= 10
         pos_near_circle = \
             robot_pos.length() <= self.get_bb().param.center_circle_diameter / 2.0 + 20

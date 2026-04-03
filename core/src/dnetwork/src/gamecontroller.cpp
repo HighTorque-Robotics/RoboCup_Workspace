@@ -32,9 +32,15 @@ GameController::GameController(ros::NodeHandle* nh)
     if (!nh->getParam("/ZJUDancer/TeamNumber", teamNumber_))
         throw std::runtime_error("Can't get team number!");
 
-    ret_.team = (uint8_t)teamNumber_;
-    ret_.player = (uint8_t)playerNumber_;
-    ret_.message = GAMECONTROLLER_RETURN_MSG_ALIVE;
+    ret_.teamNum = (uint8_t)teamNumber_;
+    ret_.playerNum = (uint8_t)playerNumber_;
+    ret_.fallen = 0;  // 0 means robot can play
+    ret_.ballAge = -1.f;  // -1 means haven't seen the ball
+    ret_.pose[0] = 0.f;
+    ret_.pose[1] = 0.f;
+    ret_.pose[2] = 0.f;
+    ret_.ball[0] = 0.f;
+    ret_.ball[1] = 0.f;
 
     pub_ = nh_->advertise<dmsgs::GCInfo>("/dnetwork_" + std::to_string(playerNumber_) + "/GCInfo", 1);
     // std::cout << "Hello1\n\n\n";
@@ -63,12 +69,12 @@ GameController::tick()
     connected_ = (elapsed < 3);
 
     TeamInfo *ourTeam, *enemyTeam;
-    if (data_.teams[TEAM_CYAN].teamNumber == teamNumber_) {
-        ourTeam = &(data_.teams[TEAM_CYAN]);
-        enemyTeam = &(data_.teams[TEAM_MAGENTA]);
+    if (data_.teams[0].teamNumber == teamNumber_) {
+        ourTeam = &(data_.teams[0]);
+        enemyTeam = &(data_.teams[1]);
     } else {
-        enemyTeam = &(data_.teams[TEAM_CYAN]);
-        ourTeam = &(data_.teams[TEAM_MAGENTA]);
+        enemyTeam = &(data_.teams[0]);
+        ourTeam = &(data_.teams[1]);
     }
 
     // std::cout << "secondary state: " << (int)data_.secondaryState << " "
@@ -77,20 +83,17 @@ GameController::tick()
     //         << (int)data_.secondaryStateInfo[2] << " "
     //         << (int)data_.secondaryStateInfo[3] << std::endl;
 
-    int state2 = data_.secondaryState;
-    int state2_team = (int)data_.secondaryStateInfo[0];
+    int gamePhase = data_.gamePhase;
+    int setPlay = data_.setPlay;
+    int kickingTeam = (int)data_.kickingTeam;
 
-    // Refer to https://github.com/RoboCup-Humanoid-TC/GameController/blob/master/src/data/states/SecondaryStateInfo.java
-    // and https://github.com/RoboCup-Humanoid-TC/GameController/blob/master/src/controller/ui/ui/customized/GameInterruptionButton.java
-    // The team that is performing the free kick
-    // - 0 for Start placing, robots should stay still, referee places the ball on the ground
-    // - 1 for End placing, robots can place themselves toward the ball
-    // - 2 for Execute, robots should stay still and referees ask to remove illegally positioned robots
-    bool state2_ready = false;
-    bool state2_freeze = false;
-    if (state2 != STATE2_NORMAL) {
-        state2_ready = ((int)data_.secondaryStateInfo[1] == 1);
-        state2_freeze = ((int)data_.secondaryStateInfo[1] == 0) or ((int)data_.secondaryStateInfo[1] == 2);
+    bool setPlayReady = false;
+    bool setPlayFreeze = false;
+    if (setPlay != SET_PLAY_NONE) {
+        // In SET state: robots must stay still (freeze)
+        // In PLAYING state: kicking team may position (ready), others wait
+        setPlayFreeze = (data_.state == STATE_SET);
+        setPlayReady = (data_.state == STATE_PLAYING);
     }
 
     bool ourDirectFreeKick = false;
@@ -106,23 +109,23 @@ GameController::tick()
     bool enemyGoalKick = false;
     bool enemyThrowIn = false;
 
-    if (state2 == STATE2_DIRECT_FREEKICK) {
-        ourDirectFreeKick = (state2_team == teamNumber_);
+    if (setPlay == SET_PLAY_DIRECT_FREE_KICK) {
+        ourDirectFreeKick = (kickingTeam == teamNumber_);
         enemyDirectFreeKick = !ourDirectFreeKick;
-    } else if (state2 == STATE2_INDIRECT_FREEKICK) {
-        ourIndirectFreeKick = (state2_team == teamNumber_);
+    } else if (setPlay == SET_PLAY_INDIRECT_FREE_KICK) {
+        ourIndirectFreeKick = (kickingTeam == teamNumber_);
         enemyIndirectFreeKick = !ourIndirectFreeKick;
-    } else if (state2 == STATE2_PENALTYKICK) {
-        ourPenaltyKick = (state2_team == teamNumber_);
+    } else if (setPlay == SET_PLAY_PENALTY_KICK) {
+        ourPenaltyKick = (kickingTeam == teamNumber_);
         enemyPenaltyKick = !ourPenaltyKick;
-    } else if (state2 == STATE2_CORNER_KICK) {
-        ourCornerKick = (state2_team == teamNumber_);
+    } else if (setPlay == SET_PLAY_CORNER_KICK) {
+        ourCornerKick = (kickingTeam == teamNumber_);
         enemyCornerKick = !ourCornerKick;
-    } else if (state2 == STATE2_GOAL_KICK) {
-        ourGoalKick = (state2_team == teamNumber_);
+    } else if (setPlay == SET_PLAY_GOAL_KICK) {
+        ourGoalKick = (kickingTeam == teamNumber_);
         enemyGoalKick = !ourGoalKick;
-    } else if (state2 == STATE2_THROW_IN) {
-        ourThrowIn = (state2_team == teamNumber_);
+    } else if (setPlay == SET_PLAY_THROW_IN) {
+        ourThrowIn = (kickingTeam == teamNumber_);
         enemyThrowIn = !ourThrowIn;
     }
 
@@ -143,18 +146,20 @@ GameController::tick()
     int ourScore = ourTeam->score;
     int enemyScore = enemyTeam->score;
 
-    bool kickoff = (data_.kickOffTeam == teamNumber_);
+    bool kickoff = (data_.kickingTeam == teamNumber_);
     auto penalty = ourTeam->players[playerNumber_ - 1].penalty;
     penalised_ = (penalty != PENALTY_NONE);
 
     // FIXME(MWX): maybe chushiqing if the Referee misoperating
     info_.connected = connected_;
+    info_.gameType = data_.competitionType;
     info_.state = data_.state;
-    info_.secondaryState = data_.secondaryState;
+    info_.stopped = data_.stopped;
+    info_.secondaryState = data_.gamePhase;
     info_.firstHalf = data_.firstHalf;
     info_.kickoff = kickoff;
-    info_.secsRemaining = data_.secsRemaining < 10000 ? data_.secsRemaining : 0;
-    info_.secondaryTime = data_.secondaryTime < 10000 ? data_.secondaryTime : 0;
+    info_.secsRemaining = (data_.secsRemaining >= 0 && data_.secsRemaining < 10000) ? (uint16_t)data_.secsRemaining : 0;
+    info_.secondaryTime = (data_.secondaryTime >= 0 && data_.secondaryTime < 10000) ? (uint16_t)data_.secondaryTime : 0;
     info_.secsTillUnpenalised = ourTeam->players[playerNumber_ - 1].secsTillUnpenalised;
     info_.ourScore = ourScore;
     info_.enemyScore = enemyScore;
@@ -174,8 +179,8 @@ GameController::tick()
     info_.enemyGoalKick = enemyGoalKick;
     info_.enemyThrowIn = enemyThrowIn;
 
-    info_.state2Ready = state2_ready;
-    info_.state2Freeze = state2_freeze;
+    info_.state2Ready = setPlayReady;
+    info_.state2Freeze = setPlayFreeze;
 
     pub_.publish(info_);
     // transmitter_->sendRaw(GAMECONTROLLER_RETURN_PORT, (void*)&ret_, sizeof(ret_));
@@ -207,9 +212,6 @@ GameController::ParseData(RoboCupGameControlData& gameData)
         return;
     }
 
-    if (gameData.teams[TEAM_CYAN].teamColour != TEAM_CYAN)
-        RawSwapTeams(gameData);
-
     if (!GameDataEqual(gameData, data_))
         memcpy(&data_, &gameData, sizeof(RoboCupGameControlData));
 }
@@ -234,7 +236,7 @@ GameController::CheckHeader(char* header)
 bool
 GameController::IsThisGame(RoboCupGameControlData& gameData)
 {
-    return !(gameData.teams[TEAM_CYAN].teamNumber != teamNumber_ && gameData.teams[TEAM_MAGENTA].teamNumber != teamNumber_);
+    return !(gameData.teams[0].teamNumber != teamNumber_ && gameData.teams[1].teamNumber != teamNumber_);
 }
 
 bool
@@ -246,7 +248,7 @@ GameController::IsValidData(RoboCupGameControlData& gameData)
     }
 
     if (gameData.version != GAMECONTROLLER_STRUCT_VERSION) {
-        ROS_WARN("Version invalid, recv: %d, need: %d", gameData.version, GAMECONTROLLER_STRUCT_VERSION);
+        ROS_WARN("Version invalid, recv: %u, need: %d", gameData.version, GAMECONTROLLER_STRUCT_VERSION);
         return false;
     }
 
@@ -261,15 +263,4 @@ GameController::IsValidData(RoboCupGameControlData& gameData)
     return true;
 }
 
-void
-GameController::RawSwapTeams(RoboCupGameControlData& gameData)
-{
-    //    auto teamSize = sizeof(TeamInfo);
-    //    TeamInfo* cyanTeam = &(gameData.teams[TEAM_CYAN]);
-    //    TeamInfo* magentaTeam = &(gameData.teams[TEAM_MAGENTA]);
-    //
-    //    TeamInfo tempTeam;
-    //    memcpy(&tempTeam, cyanTeam, teamSize);
-    std::swap(gameData.teams[TEAM_CYAN], gameData.teams[TEAM_MAGENTA]);
-}
 }
