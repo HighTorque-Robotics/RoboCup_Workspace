@@ -155,7 +155,8 @@ GameController::tick()
     info_.gameType = data_.competitionType;
     info_.state = data_.state;
     info_.stopped = data_.stopped;
-    info_.secondaryState = data_.gamePhase;
+    info_.gamePhase = data_.gamePhase;
+    info_.setPlay = data_.setPlay;
     info_.firstHalf = data_.firstHalf;
     info_.kickoff = kickoff;
     info_.secsRemaining = (data_.secsRemaining >= 0 && data_.secsRemaining < 10000) ? (uint16_t)data_.secsRemaining : 0;
