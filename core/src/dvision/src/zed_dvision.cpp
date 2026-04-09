@@ -221,7 +221,11 @@ void DVision::step1() {
     if (!parameters.simulation &&
         (!parameters.offline_replay || parameters.offline_record)) {
         frame_ = camera_->capture();
-
+        if(frame_.bgr().empty()){
+          profiler_step_1_.LogAndRestartTimer("[1] capture frame (FAILED)");
+          buffer_info_.WorkerRelease();
+          return;
+        }
         // 确保 ZED 图像为 BGR 3通道
         cv::Mat frame_bgr = frame_.bgr();
         if (frame_bgr.channels() == 4) {
@@ -658,7 +662,10 @@ void DVision::BehaviorCallback(
 
     // capture current frame
     auto frame = camera_->capture();
-
+    if(frame.bgr().empty()){
+      ROS_WARN("[zed_dvision] capture failed in BehaviorCallback");
+      return;
+    }
     // save current frame
     std::string filename = path + std::to_string(frame.time_stamp().toNSec()) + ".jpg";
     frame.save(filename);

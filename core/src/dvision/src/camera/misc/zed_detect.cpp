@@ -75,6 +75,9 @@
      for (int b = 0; b < parameters.object.batch_size; b++) {
        auto frame = zedCam.capture();
        cv::Mat mat = frame.bgr();
+       if(mat.empty())
+        continue;
+
        cv::Mat mat3;
        if(mat.channels() == 4) {
         cv::cvtColor(mat, mat3, cv::COLOR_BGRA2BGR);
@@ -83,6 +86,13 @@
         }
        images.push_back(mat3);
      }
+
+     if(images.empty()){
+      ros::spinOnce();
+      cv::waitKey(1);
+      continue;
+     }
+
      // 进行 YOLO 检测
      auto detections = v5.detect(images);
      draw_detections(detections[0], images[0]);
