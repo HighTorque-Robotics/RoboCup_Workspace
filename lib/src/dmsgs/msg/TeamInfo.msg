@@ -51,4 +51,5 @@ float32 field_consistency
 # GCInfo
 bool gc_connected
 uint8 gc_state
-uint8 gc_state2
+uint8 gamePhase
+uint8 setPlay

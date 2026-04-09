@@ -71,8 +71,10 @@ class InitialParticles(Skill):
     def execute(self):
         # Get gc status
         gc_connected = self.bb.gc_info.connected
+        # 正常开球阶段：主状态为 SET，大阶段为 NORMAL，且没有定位球 (NONE)
         gc_normal_set = self.bb.gc_info.state == GCInfo.STATE_SET and \
-                        self.bb.gc_info.secondaryState is GCInfo.STATE2_NORMAL
+                        self.bb.gc_info.gamePhase == GCInfo.GAME_PHASE_NORMAL and \
+                        self.bb.gc_info.setPlay == GCInfo.SET_PLAY_NONE
 
         # Directly set position in SET status
         # Place striker manually when kick off
