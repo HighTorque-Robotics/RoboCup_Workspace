@@ -223,6 +223,7 @@ void DVision::step1() {
         frame_ = camera_->capture();
         if(frame_.bgr().empty()){
           profiler_step_1_.LogAndRestartTimer("[1] capture frame (FAILED)");
+          buffer_info_.WorkerRelease();
           return;
         }
         // 确保 ZED 图像为 BGR 3通道
