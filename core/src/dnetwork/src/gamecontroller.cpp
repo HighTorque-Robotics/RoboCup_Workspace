@@ -92,8 +92,8 @@ GameController::tick()
     if (setPlay != SET_PLAY_NONE) {
         // In SET state: robots must stay still (freeze)
         // In PLAYING state: kicking team may position (ready), others wait
-        setPlayFreeze = (data_.state == STATE_SET);
-        setPlayReady = (data_.state == STATE_PLAYING);
+        setPlayFreeze = (data_.state == STATE_SET) || data_.stopped;
+        setPlayReady = (data_.state == STATE_PLAYING) && !data_.stopped;
     }
 
     bool ourDirectFreeKick = false;
