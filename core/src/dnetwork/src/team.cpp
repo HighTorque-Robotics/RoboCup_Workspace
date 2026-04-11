@@ -150,7 +150,8 @@ void Team::GCCallback(const dmsgs::GCInfo::ConstPtr &msg) {
   penalised_ = gc_info.penalised;
   info_.gc_connected = gc_info.connected;
   info_.gc_state = gc_info.state;
-  info_.gc_state2 = gc_info.secondaryState;
+  info_.gamePhase = gc_info.gamePhase;
+  info_.setPlay = gc_info.setPlay;
 }
 
 } // namespace dnetwork

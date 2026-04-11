@@ -9,7 +9,7 @@
           args="">
 
         <!-- <param name="role" value="$(arg role)"/> -->
-        <param name="role" value="Striker"/>
+        <param name="role" value="GCStriker"/>
         <!-- <param name="role" value="DemoMain"/> -->
         <param name="RobotId" type="int" value="$(env ZJUDANCER_ROBOTID)"/>
 
