@@ -9,7 +9,7 @@ ZJUDancer:
     AlongGrass: False
 
     UseGameController: True
-    GameControllerAddress: 192.168.1.84
+    GameControllerAddress: 192.168.1.85
     TeamNumber: 17
     TeamCyan: true
 

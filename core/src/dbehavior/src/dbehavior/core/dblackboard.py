@@ -296,8 +296,15 @@ class DBlackboard(Blackboard):
                 msg.state is GCInfo.STATE_PLAYING:
             self.on_start = True
             self.start_timer = Timer()
-        if self.gc_info.secondaryState is not GCInfo.STATE2_NORMAL and \
-                msg.secondaryState is GCInfo.STATE2_NORMAL:
+        # 判断上一帧是否为正常的常规比赛状态
+        old_is_normal = (self.gc_info.gamePhase == GCInfo.GAME_PHASE_NORMAL and 
+                         self.gc_info.setPlay == GCInfo.SET_PLAY_NONE)
+        # 判断当前帧是否为正常的常规比赛状态
+        new_is_normal = (msg.gamePhase == GCInfo.GAME_PHASE_NORMAL and 
+                         msg.setPlay == GCInfo.SET_PLAY_NONE)
+        
+        # 如果从非正常状态切换到了正常状态，则重启计时器
+        if not old_is_normal and new_is_normal:
             self.timer_state2_normal = Timer()
 
         self.gc_info = msg
