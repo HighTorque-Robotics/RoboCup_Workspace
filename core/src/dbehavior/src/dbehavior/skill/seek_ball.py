@@ -173,8 +173,8 @@ class ScanFieldDown(ScanField):
         super(ScanFieldDown, self).__init__(bb, timeout)
         self.gaze_plats = [
             VecPos(10, 75), VecPos(10, 45), VecPos(10, 0),
-            VecPos(10, -45), VecPos(10, -75), VecPos(43, -75),
-            VecPos(43, -45), VecPos(43, 0), VecPos(43, 45), VecPos(43, 75)]
+            VecPos(10, -45), VecPos(10, -75), VecPos(33, -75),
+            VecPos(33, -45), VecPos(33, 0), VecPos(33, 45), VecPos(33, 75)]
 # yapf: enable
 
 """
@@ -279,6 +279,8 @@ class TrackBall(Skill):
         self.speed = speed
         # self.yaw_min = -90      
         # self.yaw_max = 90   
+        self.pitch_min = -10    
+        self.pitch_max = 39   
         self.yaw_min = -75    
         self.yaw_max = 75    
         
@@ -296,6 +298,7 @@ class TrackBall(Skill):
                 if fabs(track.yaw - cur_plat.yaw) > self.TRACK_THRESH else cur_plat.yaw
 
             yaw = max(self.yaw_min, min(self.yaw_max, yaw))
+            pitch = max(self.pitch_min, min(self.pitch_max, pitch))
 
             self.look_at(pitch, yaw, self.speed, self.speed)
         return Status.SUCCEEDED

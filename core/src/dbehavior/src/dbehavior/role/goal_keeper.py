@@ -191,7 +191,7 @@ class GoalKeeperScan(ScanField):
         for i in range(-75, 76, 5):
             self.gaze_plats.append(VecPos(15, i))
         for i in range(75, -76, -5):
-            self.gaze_plats.append(VecPos(45, i))
+            self.gaze_plats.append(VecPos(35, i))
         # for i in range(1, 31, 5):
         #     self.gaze_plats.append(VecPos(15 + i, 90 - 3 * i))
         # for i in range(1, 31, 5):
