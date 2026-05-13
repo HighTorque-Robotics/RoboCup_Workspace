@@ -13,9 +13,9 @@ dvision:
     ball_diameter:          15
 
   monitor:
-    use_cv_show: False
+    use_cv_show: True
     transmit_raw_img:       false
-    update_gui_img: False
+    update_gui_img: True
     update_canny_img: false
     update_field_binary: false
     update_goal_binary:     false

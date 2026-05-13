@@ -1,17 +1,17 @@
 dvision:
   camera:
     debug:                 false
-    device:                /dev/Camera
-    width:                 640
-    height:                480
+    device:                /dev/video0
+    width:                 2560
+    height:                720
     frameRate:             30
 
     saturation:            64
     contrast:              32
-    brightness:            0 
+    brightness:            5
     hue:                   0
-    gamma:                 100
-    gain:                  0
+    gamma:                 200
+    gain:                  4
     sharpness:             0
 
     exposure_auto:         1 # 0 is auto, 1 is manual

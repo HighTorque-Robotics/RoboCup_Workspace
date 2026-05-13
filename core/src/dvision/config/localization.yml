@@ -42,8 +42,8 @@ dvision:
     # broadcast particles to monitor
     debug_on_monitor:       true
   object_detector:
-    threshold:              0.5
-    nms_threshold:          0.45
+    threshold:              0.35
+    nms_threshold:          0.3
     batch_size:             1
     # check validation
     ball_max_scale_coff:    0.5

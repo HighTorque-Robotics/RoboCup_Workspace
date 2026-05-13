@@ -12,34 +12,21 @@ using namespace nvinfer1;
 
 namespace dvision {
 cv::Rect get_rect(cv::Mat& img, float bbox[4]) {
-    int l, r, t, b;
-    float r_w = Yolo::INPUT_W / (img.cols * 1.0);
-    float r_h = Yolo::INPUT_H / (img.rows * 1.0);
-        l = bbox[0] - bbox[2] / 2.f;
-        r = bbox[0] + bbox[2] / 2.f;
-        t = bbox[1] - bbox[3] / 2.f ;
-        b = bbox[1] + bbox[3] / 2.f ;
-        l = l / r_w;
-        r = r / r_w;
-        t = t / r_w;
-        b = b / r_w;
-
-    return cv::Rect(l, t, r - l, b - t);
+    // bbox is [cx, cy, w, h] already in original image coordinates
+    // (yolo26::decodeOutput handles letterbox→original conversion)
+    int l = static_cast<int>(bbox[0] - bbox[2] / 2.f);
+    int r_val = static_cast<int>(bbox[0] + bbox[2] / 2.f);
+    int t = static_cast<int>(bbox[1] - bbox[3] / 2.f);
+    int b = static_cast<int>(bbox[1] + bbox[3] / 2.f);
+    return cv::Rect(l, t, r_val - l, b - t);
 }
 
 cv::Rect get_rect(cv::Mat& img, const float bbox[4]) {
-    int l, r, t, b;
-    float r_w = Yolo::INPUT_W / (img.cols * 1.0);
-    float r_h = Yolo::INPUT_H / (img.rows * 1.0);
-        l = bbox[0] - bbox[2] / 2.f;
-        r = bbox[0] + bbox[2] / 2.f;
-        t = bbox[1] - bbox[3] / 2.f ;
-        b = bbox[1] + bbox[3] / 2.f ;
-        l = l / r_w;
-        r = r / r_w;
-        t = t / r_w;
-        b = b / r_w;
-    return cv::Rect(l, t, r - l, b - t);
+    int l = static_cast<int>(bbox[0] - bbox[2] / 2.f);
+    int r_val = static_cast<int>(bbox[0] + bbox[2] / 2.f);
+    int t = static_cast<int>(bbox[1] - bbox[3] / 2.f);
+    int b = static_cast<int>(bbox[1] + bbox[3] / 2.f);
+    return cv::Rect(l, t, r_val - l, b - t);
 }
 
 // cv::Rect get_rect(cv::Mat& img, float bbox[4]) {

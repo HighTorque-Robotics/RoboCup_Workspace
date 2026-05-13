@@ -14,7 +14,8 @@ ZedCamera::~ZedCamera() {
   zed.close();
 }
 
-bool ZedCamera::initialize() {
+bool ZedCamera::initialize(sl::VIEW view) {
+  view_ = view;
   sl::InitParameters init_params;
   init_params.camera_resolution = sl::RESOLUTION::VGA;  // 640x480
   init_params.camera_fps = 30;  // 设置帧率
@@ -41,8 +42,8 @@ Frame ZedCamera::capture() {
     return Frame();  // 返回空帧
   }
 
-  // 获取左侧图像（BGR 格式）
-  zed.retrieveImage(image, sl::VIEW::LEFT, sl::MEM::CPU, sl::Resolution(0, 0));
+  // 获取图像（根据 view_ 选择左目或右目）
+  zed.retrieveImage(image, view_, sl::MEM::CPU, sl::Resolution(0, 0));
 
   // 转换为 OpenCV 格式（默认是 BGRA，需要转成 BGR）
   cv::Mat cv_image_bgra = cv::Mat(image.getHeight(), image.getWidth(), CV_8UC4, image.getPtr<sl::uchar1>());

@@ -16,9 +16,10 @@ namespace dvision {
     /**
      * \brief 初始化相机
      *
+     * \param view 选择左目或右目 (sl::VIEW::LEFT / sl::VIEW::RIGHT)
      * \return 初始化结果
      */
-    bool initialize();
+    bool initialize(sl::VIEW view = sl::VIEW::LEFT);
 
     /**
      * \brief 捕获相机图像
@@ -28,7 +29,8 @@ namespace dvision {
     Frame capture() override;
 
   private:
-    sl::Camera zed;  // ZED 相机对象
-    sl::Mat image;   // 图像数据
+    sl::Camera zed;     // ZED 相机对象
+    sl::Mat image;      // 图像数据
+    sl::VIEW view_;     // 左目或右目视图
   };
 }

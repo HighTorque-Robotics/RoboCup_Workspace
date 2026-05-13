@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.5)
 project(dvision)
 
 set(ZJUDANCER_GUI $ENV{ZJUDANCER_GUI})
@@ -191,6 +191,7 @@ add_library(dvisionlib
     src/tools/ball_tracker.cpp
     src/yolo/common.cpp
     src/yolo/yolov5.cpp
+    src/yolo/yolo26.cpp
     src/yolo/utils.cpp
 
 )

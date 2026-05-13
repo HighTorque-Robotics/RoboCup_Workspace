@@ -21,7 +21,7 @@
 
 #include "dvision/idetector.hpp"
 #include "dvision/timer.hpp"
-#include "dvision/yolo/yolov5.hpp"
+#include "dvision/yolo/yolo26.hpp"
 #include "dvision/yolo/utils.hpp"
 
 
@@ -120,7 +120,7 @@ class ObjectDetector : public IDetector {
  private:
   std::vector<std::string> class_names_;
   std::vector<float> anchor_priors_;
-  yolov5 v5;
+  yolo26 v5;
 #ifdef USE_CUDA
   
 #endif

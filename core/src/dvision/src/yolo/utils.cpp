@@ -27,8 +27,8 @@ void draw_detections(const std::vector<Yolo::Detection>& detections, std::vector
 {
     for (size_t j = 0; j < detections.size(); j++) {
         cv::Rect r = get_rect(img, detections[j].bbox);
-        cv::rectangle(img, r, cv::Scalar(0x27, 0xC1, 0x36), 2);
-        cv::putText(img, std::to_string(detections[j].conf)+"%"+class_labels[(int)detections[j].class_id], cv::Point(r.x, r.y - 1), cv::FONT_HERSHEY_PLAIN, 1.2, cv::Scalar(0xFF, 0xFF, 0xFF), 2);
+        cv::rectangle(img, r, cv::Scalar(0x27, 0xC1, 0x36), 3);
+        cv::putText(img, std::to_string(detections[j].conf)+" "+class_labels[(int)detections[j].class_id], cv::Point(r.x, r.y - 1), cv::FONT_HERSHEY_PLAIN, 1.2, cv::Scalar(0xFF, 0xFF, 0xFF), 2);
     }    
     //+class_labels[(int)detections[j].class_id]
 }
@@ -38,7 +38,7 @@ void draw_detections(const std::vector<Yolo::Detection>& detections, cv::Mat& im
 {
     for (size_t j = 0; j < detections.size(); j++) {
         cv::Rect r = get_rect(img, detections[j].bbox);
-        cv::rectangle(img, r, cv::Scalar(0x27, 0xC1, 0x36), 2);
+        cv::rectangle(img, r, cv::Scalar(0x27, 0xC1, 0x36), 3);
         cv::putText(img, std::to_string(detections[j].conf), cv::Point(r.x, r.y - 1), cv::FONT_HERSHEY_PLAIN, 1.2, cv::Scalar(0xFF, 0xFF, 0xFF), 2);
     }
 }

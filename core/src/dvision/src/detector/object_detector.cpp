@@ -107,23 +107,20 @@ bool ObjectDetector::Process(const cv::Mat &frame, cv::Mat &gui_img,
     } else if (bbox.class_label_index == 1) {
       goal_detected_ = true;
       goal_position_.push_back(bbox);
-    } else if (bbox.class_label_index == 2) {
-      // && bbox.class_label_prob > obstacle_max_prob &&
-      //  std::abs(bbox.left_top.x - bbox.right_bottom.x) <
-      //  parameters.camera.width * 0.5 && std::abs(bbox.left_top.y -
-      //  bbox.right_bottom.y) < parameters.camera.height * 0.5) {
+    } else if (bbox.class_label_index == 2 || bbox.class_label_index == 7) {
+      // class 2 = robot, class 7 = obstacle
       obstacle_detected_ = true;
-      // obstacle_max_prob = bbox.class_label_prob;
       obstacle_positions_.push_back(bbox);
-    } else if (bbox.class_label_index == 3) {
-      field_features_.t.push_back(bbox);
     } else if (bbox.class_label_index == 4) {
+      // YOLO26 class 4 = T-Intersection
+      field_features_.t.push_back(bbox);
+    } else if (bbox.class_label_index == 3) {
+      // YOLO26 class 3 = L-Intersection
       field_features_.l.push_back(bbox);
     } else if (bbox.class_label_index == 5) {
       field_features_.x.push_back(bbox);
-    } else if (bbox.class_label_index == 6) {
-      field_features_.penalty.push_back(bbox);
     }
+    // YOLO26 class 6 = crossbar (not mapped, available for future use)
   }
 
   // show detection results

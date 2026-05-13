@@ -14,7 +14,8 @@
 #include "dvision/timer.hpp"
 #include "dvision/v4l2_camera.hpp"
 #include "dvision/parameters.hpp"
-#include "dvision/yolo/yolov5.hpp"
+#include "dvision/yolo/yolo26.hpp"
+#include "dvision/yolo/utils.hpp"
 
 using namespace dvision;
 
@@ -33,11 +34,16 @@ int main(int argc, char** argv) {
   std::cout << "\tq to quit" << std::endl;
   std::cout << "\ta to switch auto capturing mode" << std::endl;
   dvision::parameters.init(&nh);
-  yolov5 v5;
+  yolo26 v5;
   v5.init(parameters.object.input_model_file,parameters.object.threshold,
   parameters.object.nms_threshold,parameters.object.batch_size);
   std::cout<<parameters.object.threshold<<std::endl;
   std::cout<<"yolo is created"<<std::endl;
+  // load class names
+  std::vector<std::string> class_names;
+  if (!read_text_file(class_names, parameters.object.input_names_file)) {
+    ROS_WARN("Failed to read class names file from: %s", parameters.object.input_names_file.c_str());
+  }
   // initialize camera
   dvision::CameraSettings s(&nh);
   dvision::V4L2Camera c(s);
@@ -66,7 +72,7 @@ int main(int argc, char** argv) {
       images.push_back(frame.bgr());
     }
     auto detections = v5.detect(images);
-    draw_detections(detections[0],images[0]);
+    draw_detections(detections[0], class_names, images[0]);
     Frame newframe(images[0]);
     images.clear();
     
